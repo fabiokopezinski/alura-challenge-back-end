@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,4 +32,11 @@ public class VideoController {
     public ResponseEntity<VideoResponse> create(@RequestBody VideoRequest videoRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(videoService.create(videoRequest));
     }
+
+    @GetMapping("/{videoId}")
+    public ResponseEntity<VideoResponse> findByVideoId(@PathVariable("videoId") Long videoId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(videoService.findByVideoId(videoId));
+    }
+
 }

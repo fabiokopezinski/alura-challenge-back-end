@@ -74,4 +74,27 @@ public class VideoServiceTest {
 
         assertThrows(BusinessException.class, () -> videoService.create(VideoScenarioFactory.CREATE_REQUEST));
     }
+
+    @Test
+    @DisplayName("Procurar video pelo id")
+    public void findByVideoId_WhenVideoIdExist_ExpectedOk() {
+
+        when(videoRepository.findById(any())).thenReturn(Optional.of(VideoScenarioFactory.VIDEO));
+
+        VideoResponse findByVideoId = videoService.findByVideoId(1L);
+
+        assertNotNull(findByVideoId);
+
+        verify(videoRepository).findById(any());
+    }
+
+    @Test
+    @DisplayName("Procurar video pelo id, mas não existe no banco")
+    public void findByVideoId_WhenVideoIdNotExist_ExpectedFail() {
+
+        when(videoRepository.findById(any())).thenReturn(Optional.empty());
+
+        assertThrows(BusinessException.class, () -> videoService.findByVideoId(1L));
+
+    }
 }

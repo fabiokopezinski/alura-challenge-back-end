@@ -47,4 +47,13 @@ public class VideoService {
 
         return video.toDto();
     }
+
+    public VideoResponse findByVideoId(Long videoId) {
+
+        Video video = videoRepository.findById(videoId).orElseThrow(Message.NOT_FOUND_VIDEO::asBusinessException);
+
+        log.info("method=findByVideoId videoId={}", videoId);
+
+        return video.toDto();
+    }
 }
