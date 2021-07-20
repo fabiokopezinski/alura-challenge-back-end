@@ -1,4 +1,4 @@
-package br.com.alura.challenge.back.dto.response;
+package br.com.alura.challenge.back.domain.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

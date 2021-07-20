@@ -1,4 +1,4 @@
-package br.com.alura.challenge.back.dto.request;
+package br.com.alura.challenge.back.domain.dto.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
