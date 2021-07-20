@@ -2,5 +2,7 @@
 
 [![Build Status](https://travis-ci.com/fabiokopezinski/alura-challenge-back-end.svg?branch=main)](https://travis-ci.com/fabiokopezinski/alura-challenge-back-end)
 
+[![CircleCI](https://circleci.com/gh/fabiokopezinski/alura-challenge-back-end/tree/main.svg?style=svg)](https://circleci.com/gh/fabiokopezinski/alura-challenge-back-end/tree/main)
+
 # alura-challenge-back-end
 Semana Alura Challenge back-end
