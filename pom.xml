@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.alura.challenge</groupId>
 	<artifactId>back</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>back</name>
 	<description>Alura Challenge Back-End</description>
 	<properties>
