@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.alura.challenge.back.domain.dto.request.VideoRequest;
+import br.com.alura.challenge.back.domain.dto.response.VideoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,4 +35,14 @@ public class Video {
 
     @Column(name = "uri", nullable = false, columnDefinition = "varchar(255)")
     private String url;
+
+    public static Video of(VideoRequest videoRequest) {
+        return Video.builder().title(videoRequest.getTitle()).description(videoRequest.getDescription())
+                .url(videoRequest.getUrl()).build();
+    }
+
+    public VideoResponse toDto() {
+        return VideoResponse.builder().videoId(this.videoId).title(this.title).description(this.description)
+                .url(this.url).build();
+    }
 }

@@ -14,4 +14,7 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
 
     @Query("SELECT NEW br.com.alura.challenge.back.domain.dto.response.VideoResponse(v.videoId,v.title,v.description,v.url) FROM Video v")
     List<VideoResponse> findAllVideo();
+
+    Video findByTitle(String title);
+
 }
