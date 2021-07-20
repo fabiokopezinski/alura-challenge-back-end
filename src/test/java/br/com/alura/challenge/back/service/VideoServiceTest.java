@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -17,7 +18,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import br.com.alura.challenge.back.domain.Video;
 import br.com.alura.challenge.back.domain.dto.response.VideoResponse;
 import br.com.alura.challenge.back.exception.BusinessException;
 import br.com.alura.challenge.back.feature.VideoScenarioFactory;
@@ -96,5 +96,24 @@ public class VideoServiceTest {
 
         assertThrows(BusinessException.class, () -> videoService.findByVideoId(1L));
 
+    }
+
+    @DisplayName("Deletar por video id válido")
+    @Test
+    public void delete_WhenVideoIdExist_ExpectedDeleted() {
+
+        when(videoRepository.findById(any())).thenReturn(Optional.of(VideoScenarioFactory.VIDEO));
+
+        videoService.delete(1L);
+
+    }
+
+    @DisplayName("Deletar por video id mas não existe no banco")
+    @Test
+    public void delete_WhenVideoIdNotExist_ExpectedNotFound() {
+
+        when(videoRepository.findById(any())).thenReturn(Optional.empty());
+
+        assertThrows(BusinessException.class, () -> videoService.delete(1L));
     }
 }
