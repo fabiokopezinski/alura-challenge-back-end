@@ -1,11 +1,13 @@
 package br.com.alura.challenge.back.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -48,6 +50,14 @@ public class VideoControllerTest {
 
         mockMvc.perform(post("/videos").content(asJsonString(VideoScenarioFactory.CREATE_REQUEST))
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+    }
+
+    @Test
+    public void update_WhenParamsIsValid_ExpectedUpdated() throws Exception {
+        when(videoService.update(anyLong(), any())).thenReturn(VideoScenarioFactory.VIDEO_RESPONSE);
+
+        mockMvc.perform(patch("/videos/1").content(asJsonString(VideoScenarioFactory.VIDEO_UPDATE))
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test

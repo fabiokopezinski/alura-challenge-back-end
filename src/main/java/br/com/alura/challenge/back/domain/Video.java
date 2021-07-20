@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.com.alura.challenge.back.domain.dto.request.VideoRequest;
+import br.com.alura.challenge.back.domain.dto.request.VideoUpdate;
 import br.com.alura.challenge.back.domain.dto.response.VideoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,5 +45,16 @@ public class Video {
     public VideoResponse toDto() {
         return VideoResponse.builder().videoId(this.videoId).title(this.title).description(this.description)
                 .url(this.url).build();
+    }
+
+    public void update(VideoUpdate videoUpdate) {
+
+        if (videoUpdate.getDescription() != null && videoUpdate.getDescription() != "") {
+            this.description = videoUpdate.getDescription();
+        }
+
+        if (videoUpdate.getUrl() != null && videoUpdate.getUrl() != "") {
+            this.url = videoUpdate.getUrl();
+        }
     }
 }
