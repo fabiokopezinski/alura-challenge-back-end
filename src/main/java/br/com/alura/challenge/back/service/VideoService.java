@@ -11,6 +11,7 @@ import br.com.alura.challenge.back.domain.Video;
 import br.com.alura.challenge.back.domain.dto.request.VideoRequest;
 import br.com.alura.challenge.back.domain.dto.response.VideoResponse;
 import br.com.alura.challenge.back.repository.VideoRepository;
+import br.com.alura.challenge.back.validations.Message;
 import br.com.alura.challenge.back.validations.OnCreate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,10 @@ public class VideoService {
 
     @Validated(OnCreate.class)
     public VideoResponse create(@Valid VideoRequest videoRequest) {
+
+        videoRepository.findByTitle(videoRequest.getTitle()).ifPresent(p -> {
+            throw Message.VIDEO_EXIST.asBusinessException();
+        });
 
         Video video = Video.of(videoRequest);
 
