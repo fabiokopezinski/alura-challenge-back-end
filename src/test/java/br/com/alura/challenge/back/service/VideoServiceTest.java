@@ -116,4 +116,28 @@ public class VideoServiceTest {
 
         assertThrows(BusinessException.class, () -> videoService.delete(1L));
     }
+
+    @DisplayName("Atualizar video com sucesso")
+    @Test
+    public void update_WhenVideoIdIsValid_ExpectedUpdated() {
+
+        when(videoRepository.findById(any())).thenReturn(Optional.of(VideoScenarioFactory.VIDEO));
+
+        VideoResponse update = videoService.update(1L, VideoScenarioFactory.VIDEO_UPDATE);
+
+        assertNotNull(update);
+
+        verify(videoRepository).findById(any());
+
+    }
+
+    @DisplayName("Atualizar video com id inválido")
+    @Test
+    public void update_WhenVideoIdIsInvalid_ExpectedNotFound() {
+
+        when(videoRepository.findById(any())).thenReturn(Optional.empty());
+
+        assertThrows(BusinessException.class, () -> videoService.update(1L, VideoScenarioFactory.VIDEO_UPDATE));
+
+    }
 }
