@@ -4,6 +4,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.URL;
+
 import br.com.alura.challenge.back.validations.OnCreate;
 import br.com.alura.challenge.back.validations.OnUpdate;
 import lombok.AllArgsConstructor;
@@ -32,5 +34,6 @@ public class VideoRequest {
     @NotBlank(groups = { OnCreate.class, OnUpdate.class }, message = "O url está inválido")
     @NotNull(groups = { OnCreate.class, OnUpdate.class }, message = "O url está inválido")
     @NotEmpty(groups = { OnCreate.class, OnUpdate.class }, message = "O url está inválido")
+    @URL(groups = { OnCreate.class, OnUpdate.class }, message = "Colocar em formato de url")
     private String url;
 }

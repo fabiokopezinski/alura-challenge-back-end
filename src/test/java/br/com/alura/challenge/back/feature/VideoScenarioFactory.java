@@ -22,7 +22,7 @@ public class VideoScenarioFactory {
 
     private static List<VideoResponse> loadFindAll() {
 
-        VideoResponse video = new VideoResponse(1L, "title", "description", "url");
+        VideoResponse video = new VideoResponse(1L, "title", "description", "http://teste.com");
 
         List<VideoResponse> list = new ArrayList<>();
 
@@ -33,25 +33,25 @@ public class VideoScenarioFactory {
 
     private static VideoUpdate loadlVideoUpdate() {
 
-        VideoUpdate video = new VideoUpdate("description", "url");
+        VideoUpdate video = new VideoUpdate("description", "http://teste.com");
 
         return video;
     }
 
     private static VideoResponse loadVideoResponse() {
 
-        VideoResponse video = new VideoResponse(1L, "title", "description", "url");
+        VideoResponse video = new VideoResponse(1L, "title", "description", "http://teste.com");
 
         return video;
     }
 
     private static Video loadVideo() {
 
-        Video video = new Video(1L, "title", "description", "url");
+        Video video = new Video(1L, "title", "description", "http://teste.com");
         return video;
     }
 
     private static VideoRequest loadCreateRequest() {
-        return VideoRequest.builder().title("title").description("description").url("url").build();
+        return VideoRequest.builder().title("title").description("description").url("http://teste.com").build();
     }
 }

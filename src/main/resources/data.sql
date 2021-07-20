@@ -10,4 +10,4 @@ create table tb_video(
 
 
 
-insert into tb_video values(1,'Curso de Java - Iniciando','Curso de java para iniciantes','http:')
+insert into tb_video values(1,'Curso de Java - Iniciando','Curso de java para iniciantes','http://testewa.com.br')
