@@ -2,10 +2,13 @@ package br.com.alura.challenge.back.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +17,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import br.com.alura.challenge.back.domain.Video;
 import br.com.alura.challenge.back.domain.dto.response.VideoResponse;
+import br.com.alura.challenge.back.exception.BusinessException;
 import br.com.alura.challenge.back.feature.VideoScenarioFactory;
 import br.com.alura.challenge.back.repository.VideoRepository;
 
@@ -43,4 +48,30 @@ public class VideoServiceTest {
 
     }
 
+    @DisplayName("Criar video com params validos")
+    @Test
+    public void create_WhenNotExistTitle_ExpectedCreate() {
+
+        when(videoRepository.save(any())).thenReturn(VideoScenarioFactory.VIDEO);
+
+        when(videoRepository.findByTitle(any())).thenReturn(Optional.empty());
+
+        VideoResponse save = videoService.create(VideoScenarioFactory.CREATE_REQUEST);
+
+        assertNotNull(save);
+
+        verify(videoRepository).findByTitle(any());
+
+        verify(videoRepository).save(any());
+
+    }
+
+    @DisplayName("Criar video com titulo existente")
+    @Test
+    public void create_WhenExistTitle_ExpectedBadRequest() {
+
+        when(videoRepository.findByTitle(any())).thenReturn(Optional.of(VideoScenarioFactory.VIDEO));
+
+        assertThrows(BusinessException.class, () -> videoService.create(VideoScenarioFactory.CREATE_REQUEST));
+    }
 }
