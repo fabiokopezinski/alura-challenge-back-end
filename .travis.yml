@@ -1,0 +1,14 @@
+dist: trusty
+language: java
+jdk:
+  - oraclejdk11
+install:
+  - mvn -N io.takari:maven:wrapper
+script:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn test -B
+env:
+  global:
+    - CODECOV_TOKEN=:6e3a7c87-f262-46d4-be70-4c59849b22d2
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
