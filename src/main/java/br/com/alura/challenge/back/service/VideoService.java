@@ -56,4 +56,13 @@ public class VideoService {
 
         return video.toDto();
     }
+
+    public void delete(Long videoId) {
+
+        videoRepository.findById(videoId).orElseThrow(Message.NOT_FOUND_VIDEO::asBusinessException);
+
+        videoRepository.deleteById(videoId);
+
+        log.info("method=delete videoId={}", videoId);
+    }
 }

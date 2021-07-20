@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,8 +36,13 @@ public class VideoController {
 
     @GetMapping("/{videoId}")
     public ResponseEntity<VideoResponse> findByVideoId(@PathVariable("videoId") Long videoId) {
-
         return ResponseEntity.status(HttpStatus.OK).body(videoService.findByVideoId(videoId));
+    }
+
+    @DeleteMapping("/{videoId}")
+    public ResponseEntity<Void> delete(@PathVariable("videoId") Long videoId) {
+        videoService.delete(videoId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
