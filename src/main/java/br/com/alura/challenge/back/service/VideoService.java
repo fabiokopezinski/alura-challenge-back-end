@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.alura.challenge.back.domain.Video;
 import br.com.alura.challenge.back.domain.dto.response.VideoResponse;
 import br.com.alura.challenge.back.repository.VideoRepository;
 import lombok.AllArgsConstructor;
