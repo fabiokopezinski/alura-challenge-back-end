@@ -7,6 +7,5 @@ install:
 script:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - mvn test -B
-  - mvn cobertura:cobertura
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t 6e3a7c87-f262-46d4-be70-4c59849b22d2
