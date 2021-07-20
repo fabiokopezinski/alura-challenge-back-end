@@ -48,6 +48,13 @@ public class VideoControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
     }
 
+    @Test
+    public void findByVideoId_WhenPathVariableIsValid_ExpectedOk() throws Exception {
+        when(videoService.findByVideoId(any())).thenReturn(VideoScenarioFactory.VIDEO_RESPONSE);
+
+        mockMvc.perform(get("/videos/1").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    }
+
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
