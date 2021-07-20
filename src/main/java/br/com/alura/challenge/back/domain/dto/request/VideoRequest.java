@@ -25,12 +25,12 @@ public class VideoRequest {
     private String title;
 
     @NotBlank(groups = { OnCreate.class, OnUpdate.class }, message = "O description está inválido")
-    @NotEmpty(groups = { OnCreate.class, OnUpdate.class }, message = "O title está inválido")
+    @NotEmpty(groups = { OnCreate.class, OnUpdate.class }, message = "O description está inválido")
     @NotNull(groups = { OnCreate.class, OnUpdate.class }, message = "O description está inválido")
     private String description;
 
     @NotBlank(groups = { OnCreate.class, OnUpdate.class }, message = "O url está inválido")
     @NotNull(groups = { OnCreate.class, OnUpdate.class }, message = "O url está inválido")
-    @NotEmpty(groups = { OnCreate.class, OnUpdate.class }, message = "O title está inválido")
+    @NotEmpty(groups = { OnCreate.class, OnUpdate.class }, message = "O url está inválido")
     private String url;
 }
