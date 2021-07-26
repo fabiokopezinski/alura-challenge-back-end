@@ -1,7 +1,6 @@
 package br.com.alura.challenge.back.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.challenge.back.annotations.VideoCreateCodeStandard;
@@ -35,8 +35,8 @@ public class VideoController {
 
     @GetMapping
     @VideoListAllCodeStandard
-    public ResponseEntity<List<VideoResponse>> findAllVideo() {
-        return ResponseEntity.status(HttpStatus.OK).body(videoService.findAllVideo());
+    public ResponseEntity<Page<VideoResponse>> findAllVideo(@RequestParam(required = false,defaultValue = "0",name = "page")int page,@RequestParam(required = false,defaultValue = "10",name="limit" )int limit ){
+        return ResponseEntity.status(HttpStatus.OK).body(videoService.findAllVideo(page,limit));
     }
 
     @PostMapping

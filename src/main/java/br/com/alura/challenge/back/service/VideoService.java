@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -27,11 +30,14 @@ public class VideoService {
 
     private final VideoRepository videoRepository;
 
-    public List<VideoResponse> findAllVideo() {
+    public Page<VideoResponse> findAllVideo(int page,int limit) {
 
-        log.info("method=findAllVideo");
 
-        return videoRepository.findAllVideo();
+        Pageable pageable = PageRequest.of(page, limit);
+
+        log.info("method=findAllVideo page={} limit={}",page,limit);
+
+        return videoRepository.findAllVideo(pageable);
     }
 
     @Validated(OnCreate.class)
