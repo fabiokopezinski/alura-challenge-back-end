@@ -53,7 +53,7 @@ public class VideoScenarioFactory {
 
     private static Video loadVideo() {
 
-        Video video = new Video(1L, "title", "description", "http://teste.com");
+        Video video = new Video(1L, "title", "description", "http://teste.com",null);
         return video;
     }
 

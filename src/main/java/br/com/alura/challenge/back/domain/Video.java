@@ -1,10 +1,13 @@
 package br.com.alura.challenge.back.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.alura.challenge.back.domain.dto.request.VideoRequest;
@@ -36,6 +39,10 @@ public class Video {
 
     @Column(name = "uri", nullable = false, columnDefinition = "varchar(255)")
     private String url;
+
+    @OneToOne(optional = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")
+    private Category category;
 
     public static Video of(VideoRequest videoRequest) {
         return Video.builder().title(videoRequest.getTitle()).description(videoRequest.getDescription())
