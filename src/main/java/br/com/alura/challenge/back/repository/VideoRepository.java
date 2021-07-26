@@ -14,7 +14,8 @@ import br.com.alura.challenge.back.domain.dto.response.VideoResponse;
 @Repository
 public interface VideoRepository extends JpaRepository<Video, Long> {
 
-    @Query("SELECT NEW br.com.alura.challenge.back.domain.dto.response.VideoResponse(v.videoId,v.title,v.description,v.url) FROM Video v")
+    @Query("SELECT NEW br.com.alura.challenge.back.domain.dto.response.VideoResponse(v.videoId,v.title,v.categoryId,v.description,v.url) FROM Video v"+
+    " INNER JOIN Category c on c.categoryId=v.categoryId")
     Page<VideoResponse> findAllVideo(Pageable page);
 
     Optional<Video> findByTitle(String title);

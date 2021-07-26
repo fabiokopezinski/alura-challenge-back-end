@@ -31,6 +31,8 @@ public class VideoRequest {
     @NotNull(groups = { OnCreate.class, OnUpdate.class }, message = "O description está inválido")
     private String description;
 
+    private Long categoryId=1L;
+
     @NotBlank(groups = { OnCreate.class, OnUpdate.class }, message = "O url está inválido")
     @NotNull(groups = { OnCreate.class, OnUpdate.class }, message = "O url está inválido")
     @NotEmpty(groups = { OnCreate.class, OnUpdate.class }, message = "O url está inválido")

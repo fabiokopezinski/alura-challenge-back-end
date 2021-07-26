@@ -11,15 +11,11 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class VideoResponse {
-
-    private Long videoId;
-
+public class CategoryResponse {
+    
+    private Long categoryId;
+    
     private String title;
 
-    private Long categoryId;
-
-    private String description;
-
-    private String url;
+    private String color;
 }
