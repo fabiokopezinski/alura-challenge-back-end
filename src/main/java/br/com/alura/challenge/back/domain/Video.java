@@ -40,18 +40,26 @@ public class Video {
     @Column(name = "uri", nullable = false, columnDefinition = "varchar(255)")
     private String url;
 
-    @OneToOne(optional = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")
+    @Column(name="categoria_id",nullable=true,insertable = false,updatable = false)
+    private Long categoryId;
+
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoria_id",referencedColumnName = "categoria_id")
     private Category category;
 
-    public static Video of(VideoRequest videoRequest) {
+    public static Video of(VideoRequest videoRequest) {        
         return Video.builder().title(videoRequest.getTitle()).description(videoRequest.getDescription())
                 .url(videoRequest.getUrl()).build();
     }
 
     public VideoResponse toDto() {
-        return VideoResponse.builder().videoId(this.videoId).title(this.title).description(this.description)
+        return VideoResponse.builder().videoId(this.videoId).title(this.title).categoryId(this.category.getCategoryId()).description(this.description)
                 .url(this.url).build();
+    }
+
+
+    public void addCategory(Category category) {
+        this.category = category;
     }
 
     public void update(VideoUpdate videoUpdate) {

@@ -6,7 +6,7 @@ create table tb_video(
     title varchar(255) NOT NULL,
     descricao varchar(255) NOT NULL,
     uri varchar(255) NOT NULL,
-    categoria_id bigint ,
+    categoria_id bigint NOT NULL ,
     primary key(video_id)
 );
 
@@ -19,5 +19,6 @@ create table tb_categoria(
     primary key(categoria_id)
 );
 
+insert into tb_categoria values(1,'LIVRE','White');
 
-insert into tb_video values(1,'curso de Testes de Integração: Testes de SQL e DAOs automatizados em Java','Desenvolvedores e desenvolvedoras Java com base em testes de unidade, que querem ampliar os seus conhecimentos em cenários que exigem integração.','https://www.alura.com.br/curso-online-teste-integracao-sql-daos-automatizados-java',null);
+insert into tb_video values(1,'curso de Testes de Integração: Testes de SQL e DAOs automatizados em Java','Desenvolvedores e desenvolvedoras Java com base em testes de unidade, que querem ampliar os seus conhecimentos em cenários que exigem integração.','https://www.alura.com.br/curso-online-teste-integracao-sql-daos-automatizados-java',1);

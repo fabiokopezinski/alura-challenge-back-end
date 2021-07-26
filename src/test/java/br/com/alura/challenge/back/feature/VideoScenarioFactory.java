@@ -28,7 +28,7 @@ public class VideoScenarioFactory {
 
         PageRequest page = PageRequest.of(0, 10);
 
-        VideoResponse video = new VideoResponse(1L, "title", "description", "http://teste.com");
+        VideoResponse video = new VideoResponse(1L, "title",1L,"description", "http://teste.com");
 
         List<VideoResponse> list = new ArrayList<>();
 
@@ -46,18 +46,20 @@ public class VideoScenarioFactory {
 
     private static VideoResponse loadVideoResponse() {
 
-        VideoResponse video = new VideoResponse(1L, "title", "description", "http://teste.com");
+        VideoResponse video = new VideoResponse(1L, "title", 1L,"description", "http://teste.com");
 
         return video;
     }
 
     private static Video loadVideo() {
 
-        Video video = new Video(1L, "title", "description", "http://teste.com",null);
+        Video video = new Video(1L, "title", "description", "http://teste.com", 1L, CategoryScenarioFactory.CATEGORY);
+        
         return video;
     }
 
     private static VideoRequest loadCreateRequest() {
-        return VideoRequest.builder().title("title").description("description").url("http://teste.com").build();
+        return VideoRequest.builder().title("title").description("description").url("http://teste.com").categoryId(1L)
+                .build();
     }
 }

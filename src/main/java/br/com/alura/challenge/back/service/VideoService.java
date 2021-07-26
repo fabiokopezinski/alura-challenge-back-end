@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import br.com.alura.challenge.back.domain.Category;
 import br.com.alura.challenge.back.domain.Video;
 import br.com.alura.challenge.back.domain.dto.request.VideoRequest;
 import br.com.alura.challenge.back.domain.dto.request.VideoUpdate;
@@ -30,6 +31,8 @@ public class VideoService {
 
     private final VideoRepository videoRepository;
 
+    private final CategoryService categoryService;
+
     public Page<VideoResponse> findAllVideo(int page,int limit) {
 
 
@@ -43,16 +46,21 @@ public class VideoService {
     @Validated(OnCreate.class)
     public VideoResponse create(@Valid VideoRequest videoRequest) {
 
+        Category category= categoryService.findById(videoRequest.getCategoryId());
+
         videoRepository.findByTitle(videoRequest.getTitle()).ifPresent(p -> {
             throw Message.VIDEO_EXIST.asBusinessException();
         });
 
         Video video = Video.of(videoRequest);
 
+        video.addCategory(category);
+
         videoRepository.save(video);
 
-        log.info("method=create videoId={} title={} description={} url={}", video.getVideoId(), video.getTitle(),
-                video.getDescription(), video.getUrl());
+        log.info("method=create videoId={} title={} description={} url={} categoryId={}", video.getVideoId(),
+                video.getTitle(),
+                video.getDescription(), video.getUrl(), video.getCategoryId());
 
         return video.toDto();
     }
