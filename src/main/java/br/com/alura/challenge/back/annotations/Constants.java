@@ -8,6 +8,9 @@ public class Constants {
     public static final String LIST_ALL_CATEGORY_SUMMARY = "Listar todos os categorias";
     public static final String LIST_ALL_CATEGORY_DESCRIPTION = "Irá realizar uma listagem dos categorias";
 
+    public static final String LIST_ALL_PER_CATEGORY_SUMMARY = "Listar videos por categoria";
+    public static final String LIST_ALL_PER_CATEGORY_DESCRIPTION = "Irá realizar uma listagem por categoria";
+
     public static final String VIDEO_SEARCH_ID_SUMMARY = "Procurar por Id";
     public static final String VIDEO_SEARCH_ID_DESCRIPTION = "Irá realizar uma busca de um video pelo id";
 

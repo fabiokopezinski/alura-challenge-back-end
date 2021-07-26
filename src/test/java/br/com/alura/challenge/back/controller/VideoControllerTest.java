@@ -39,8 +39,15 @@ public class VideoControllerTest {
 
     @Test
     public void findAllVideo_ExpectedOk() throws Exception {
-        when(videoService.findAllVideo(anyInt(),anyInt())).thenReturn(VideoScenarioFactory.FIND_ALL);
+        when(videoService.findAllVideo(anyInt(),anyInt(),any())).thenReturn(VideoScenarioFactory.FIND_ALL);
         mockMvc.perform(get("/videos")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void findByCategory_ExpectedOk() throws Exception {
+        when(videoService.findByCategory(anyInt(), anyInt(), any())).thenReturn(VideoScenarioFactory.FIND_ALL);
+        mockMvc.perform(get("/videos/1/categorias")).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 

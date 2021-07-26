@@ -37,19 +37,32 @@ public class VideoServiceTest {
     @Mock
     private CategoryService categoryService;
 
+    @Test
+    @DisplayName("Listar por categorias")
+    public void findByCategory() {
+
+        when(videoRepository.findByCategoria(any(), any(Pageable.class))).thenReturn(VideoScenarioFactory.FIND_ALL);
+
+        Page<VideoResponse> findByCategory = videoService.findByCategory(0, 10, 1L);
+
+        assertNotNull(findByCategory);
+
+        verify(videoRepository).findByCategoria(any(), any());
+    }
+
     @DisplayName("Listar todos os videos disponiveis")
     @Test
     public void findAllVideo() {
 
-        when(videoRepository.findAllVideo(any(Pageable.class))).thenReturn(VideoScenarioFactory.FIND_ALL);
+        when(videoRepository.findAllVideo(any(Pageable.class), any())).thenReturn(VideoScenarioFactory.FIND_ALL);
 
-        Page<VideoResponse> findAllVideo = videoService.findAllVideo(0,10);
+        Page<VideoResponse> findAllVideo = videoService.findAllVideo(0, 10, null);
 
         assertNotNull(findAllVideo);
 
         assertEquals(VideoScenarioFactory.FIND_ALL, findAllVideo);
 
-        verify(videoRepository).findAllVideo(any());
+        verify(videoRepository).findAllVideo(any(), any());
 
     }
 
