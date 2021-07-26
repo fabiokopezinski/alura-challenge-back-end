@@ -43,7 +43,7 @@ public class Video {
     @Column(name="categoria_id",nullable=true,insertable = false,updatable = false)
     private Long categoryId;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne(optional = false)
     @JoinColumn(name = "categoria_id",referencedColumnName = "categoria_id")
     private Category category;
 
@@ -60,6 +60,7 @@ public class Video {
 
     public void addCategory(Category category) {
         this.category = category;
+        this.categoryId = category.getCategoryId();
     }
 
     public void update(VideoUpdate videoUpdate) {

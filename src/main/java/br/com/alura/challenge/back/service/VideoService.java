@@ -1,7 +1,5 @@
 package br.com.alura.challenge.back.service;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -33,20 +31,28 @@ public class VideoService {
 
     private final CategoryService categoryService;
 
-    public Page<VideoResponse> findAllVideo(int page,int limit) {
-
+    public Page<VideoResponse> findByCategory(int page, int limit, Long categoryId) {
 
         Pageable pageable = PageRequest.of(page, limit);
 
-        log.info("method=findAllVideo page={} limit={}",page,limit);
+        log.info("method=findByCategory page={} limit={} categoryId={}", page, limit, categoryId);
 
-        return videoRepository.findAllVideo(pageable);
+        return videoRepository.findByCategoria(categoryId, pageable);
+    }
+
+    public Page<VideoResponse> findAllVideo(int page, int limit,String title) {
+
+        Pageable pageable = PageRequest.of(page, limit);
+
+        log.info("method=findAllVideo page={} limit={} search={}", page, limit,title);
+
+        return videoRepository.findAllVideo(pageable,title);
     }
 
     @Validated(OnCreate.class)
     public VideoResponse create(@Valid VideoRequest videoRequest) {
 
-        Category category= categoryService.findById(videoRequest.getCategoryId());
+        Category category = categoryService.findById(videoRequest.getCategoryId());
 
         videoRepository.findByTitle(videoRequest.getTitle()).ifPresent(p -> {
             throw Message.VIDEO_EXIST.asBusinessException();
@@ -59,8 +65,7 @@ public class VideoService {
         videoRepository.save(video);
 
         log.info("method=create videoId={} title={} description={} url={} categoryId={}", video.getVideoId(),
-                video.getTitle(),
-                video.getDescription(), video.getUrl(), video.getCategoryId());
+                video.getTitle(), video.getDescription(), video.getUrl(), video.getCategoryId());
 
         return video.toDto();
     }
@@ -90,7 +95,7 @@ public class VideoService {
 
     public void delete(Long videoId) {
 
-        videoRepository.findById(videoId).orElseThrow(Message.NOT_FOUND_VIDEO::asBusinessException);
+        Video video = videoRepository.findById(videoId).orElseThrow(Message.NOT_FOUND_VIDEO::asBusinessException);
 
         videoRepository.deleteById(videoId);
 

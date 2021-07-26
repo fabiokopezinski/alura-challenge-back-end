@@ -35,6 +35,7 @@ public class Category {
 
     @Column(name = "color", nullable = false, columnDefinition = "varchar(255)")
     private String color;
+    
 
     public static final Category of(CategoryRequest categoryRequest) {
         return Category.builder().title(categoryRequest.getTitle()).color(categoryRequest.getColor()).build();
