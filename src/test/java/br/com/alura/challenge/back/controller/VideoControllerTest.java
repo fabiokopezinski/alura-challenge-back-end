@@ -1,6 +1,7 @@
 package br.com.alura.challenge.back.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -38,7 +39,7 @@ public class VideoControllerTest {
 
     @Test
     public void findAllVideo_ExpectedOk() throws Exception {
-        when(videoService.findAllVideo()).thenReturn(VideoScenarioFactory.FIND_ALL);
+        when(videoService.findAllVideo(anyInt(),anyInt())).thenReturn(VideoScenarioFactory.FIND_ALL);
         mockMvc.perform(get("/videos")).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
