@@ -7,7 +7,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +15,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import br.com.alura.challenge.back.domain.dto.response.VideoResponse;
 import br.com.alura.challenge.back.exception.BusinessException;
@@ -35,15 +36,15 @@ public class VideoServiceTest {
     @Test
     public void findAllVideo() {
 
-        when(videoRepository.findAllVideo()).thenReturn(VideoScenarioFactory.FIND_ALL);
+        when(videoRepository.findAllVideo(any(Pageable.class))).thenReturn(VideoScenarioFactory.FIND_ALL);
 
-        List<VideoResponse> findAllVideo = videoService.findAllVideo();
+        Page<VideoResponse> findAllVideo = videoService.findAllVideo(0,10);
 
         assertNotNull(findAllVideo);
 
-        assertEquals(VideoScenarioFactory.FIND_ALL.size(), findAllVideo.size());
+        assertEquals(VideoScenarioFactory.FIND_ALL, findAllVideo);
 
-        verify(videoRepository).findAllVideo();
+        verify(videoRepository).findAllVideo(any());
 
     }
 
