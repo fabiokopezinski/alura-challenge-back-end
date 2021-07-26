@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 
 import br.com.alura.challenge.back.domain.dto.response.VideoResponse;
 import br.com.alura.challenge.back.exception.BusinessException;
+import br.com.alura.challenge.back.feature.CategoryScenarioFactory;
 import br.com.alura.challenge.back.feature.VideoScenarioFactory;
 import br.com.alura.challenge.back.repository.VideoRepository;
 
@@ -31,6 +33,9 @@ public class VideoServiceTest {
 
     @Mock
     private VideoRepository videoRepository;
+
+    @Mock
+    private CategoryService categoryService;
 
     @DisplayName("Listar todos os videos disponiveis")
     @Test
@@ -56,6 +61,8 @@ public class VideoServiceTest {
 
         when(videoRepository.findByTitle(any())).thenReturn(Optional.empty());
 
+        when(categoryService.findById(anyLong())).thenReturn(CategoryScenarioFactory.CATEGORY);
+
         VideoResponse save = videoService.create(VideoScenarioFactory.CREATE_REQUEST);
 
         assertNotNull(save);
@@ -71,6 +78,8 @@ public class VideoServiceTest {
     public void create_WhenExistTitle_ExpectedBadRequest() {
 
         when(videoRepository.findByTitle(any())).thenReturn(Optional.of(VideoScenarioFactory.VIDEO));
+
+        when(categoryService.findById(anyLong())).thenReturn(CategoryScenarioFactory.CATEGORY);
 
         assertThrows(BusinessException.class, () -> videoService.create(VideoScenarioFactory.CREATE_REQUEST));
     }

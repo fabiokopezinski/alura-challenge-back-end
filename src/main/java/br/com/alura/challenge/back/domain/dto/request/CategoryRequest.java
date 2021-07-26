@@ -7,11 +7,13 @@ import javax.validation.constraints.NotNull;
 import br.com.alura.challenge.back.validations.OnCreate;
 import br.com.alura.challenge.back.validations.OnUpdate;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 public class CategoryRequest {
     
