@@ -1,8 +1,9 @@
 package br.com.alura.challenge.back.repository;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import br.com.alura.challenge.back.domain.dto.response.VideoResponse;
 public interface VideoRepository extends JpaRepository<Video, Long> {
 
     @Query("SELECT NEW br.com.alura.challenge.back.domain.dto.response.VideoResponse(v.videoId,v.title,v.description,v.url) FROM Video v")
-    List<VideoResponse> findAllVideo();
+    Page<VideoResponse> findAllVideo(Pageable page);
 
     Optional<Video> findByTitle(String title);
 
