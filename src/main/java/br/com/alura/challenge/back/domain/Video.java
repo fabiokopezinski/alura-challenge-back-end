@@ -1,6 +1,5 @@
 package br.com.alura.challenge.back.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

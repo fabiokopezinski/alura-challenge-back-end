@@ -95,7 +95,7 @@ public class VideoService {
 
     public void delete(Long videoId) {
 
-        Video video = videoRepository.findById(videoId).orElseThrow(Message.NOT_FOUND_VIDEO::asBusinessException);
+        videoRepository.findById(videoId).orElseThrow(Message.NOT_FOUND_VIDEO::asBusinessException);
 
         videoRepository.deleteById(videoId);
 

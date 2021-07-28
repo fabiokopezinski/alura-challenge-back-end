@@ -24,6 +24,16 @@ public class VideoScenarioFactory {
 
     public static final VideoUpdate VIDEO_UPDATE = loadlVideoUpdate();
 
+    public static final Video VIDEO_BDD = loadVideoCreate();
+
+
+    private static Video loadVideoCreate() {
+
+        Video video = new Video(99L, "BDD_TITLE", "BDD_DESCRIPTION", "http://teste.com", 1L, CategoryScenarioFactory.CATEGORY);
+
+        return video;
+    }
+
     private static Page<VideoResponse> loadFindAll() {
 
         PageRequest page = PageRequest.of(0, 10);
