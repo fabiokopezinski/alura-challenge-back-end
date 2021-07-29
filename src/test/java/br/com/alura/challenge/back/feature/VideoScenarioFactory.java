@@ -18,22 +18,40 @@ public class VideoScenarioFactory {
 
     public static final VideoRequest CREATE_REQUEST = loadCreateRequest();
 
+    public static final VideoRequest CREATE_REQUEST_BAD_REQUEST = loadVideoCreateBadRequest();
+
     public static final Video VIDEO = loadVideo();
 
     public static final VideoResponse VIDEO_RESPONSE = loadVideoResponse();
 
     public static final VideoUpdate VIDEO_UPDATE = loadlVideoUpdate();
 
+    public static final Video VIDEO_BDD = loadVideoCreate();
+
+    private static Video loadVideoCreate() {
+
+        Video video = new Video(99L, "BDD_TITLE", "BDD_DESCRIPTION", "http://teste.com", 1L,
+                CategoryScenarioFactory.CATEGORY);
+
+        return video;
+    }
+
+    private static VideoRequest loadVideoCreateBadRequest() {
+
+        return VideoRequest.builder().title("curso de Testes de Integração: Testes de SQL e DAOs automatizados em Java").description("description").url("http://teste.com").categoryId(1L)
+                .build();
+    }
+
     private static Page<VideoResponse> loadFindAll() {
 
         PageRequest page = PageRequest.of(0, 10);
 
-        VideoResponse video = new VideoResponse(1L, "title",1L,"description", "http://teste.com");
+        VideoResponse video = new VideoResponse(1L, "title", 1L, "description", "http://teste.com");
 
         List<VideoResponse> list = new ArrayList<>();
 
         list.add(video);
-        
+
         return new PageImpl<VideoResponse>(list, page, 10);
     }
 
@@ -46,7 +64,7 @@ public class VideoScenarioFactory {
 
     private static VideoResponse loadVideoResponse() {
 
-        VideoResponse video = new VideoResponse(1L, "title", 1L,"description", "http://teste.com");
+        VideoResponse video = new VideoResponse(1L, "title", 1L, "description", "http://teste.com");
 
         return video;
     }
@@ -54,7 +72,7 @@ public class VideoScenarioFactory {
     private static Video loadVideo() {
 
         Video video = new Video(1L, "title", "description", "http://teste.com", 1L, CategoryScenarioFactory.CATEGORY);
-        
+
         return video;
     }
 

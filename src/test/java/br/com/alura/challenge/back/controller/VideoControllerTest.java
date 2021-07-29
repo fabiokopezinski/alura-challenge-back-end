@@ -55,7 +55,6 @@ public class VideoControllerTest {
     public void create_WhenParamsIsValid_ExpectedCreate() throws Exception {
 
         when(videoService.create(any())).thenReturn(VideoScenarioFactory.VIDEO_RESPONSE);
-
         mockMvc.perform(post("/videos").content(asJsonString(VideoScenarioFactory.CREATE_REQUEST))
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
     }

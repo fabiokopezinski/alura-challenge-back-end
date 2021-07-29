@@ -16,17 +16,17 @@ public class CategoryScenarioFactory {
 
     public static final Page<CategoryResponse> FIND_ALL = loadFindAll();
 
-
     public static final CategoryResponse FIND_BY_ID = loadCategoryResponse();
-
 
     public static final CategoryRequest CATEGORY_REQUEST = loadCreateRequest();
 
+    public static final CategoryRequest CATEGORY_REQUEST_BAD = loadCreateRequestBAD();
 
     public static final CategoryUpdate CATEGORY_UPDATE = loadCreateUpdate();
 
-
     public static final Category CATEGORY = loadCategory();
+
+    public static final Category CATEGORY_BDD = loadCategoryBDD();
 
 
     private static Page<CategoryResponse> loadFindAll() {
@@ -40,6 +40,17 @@ public class CategoryScenarioFactory {
         list.add(categoryResponse);
 
         return new PageImpl<CategoryResponse>(list, page, 10);
+    }
+
+    private static CategoryRequest loadCreateRequestBAD() {
+        return CategoryRequest.builder().title("LIVRE").color("color").build();
+    }
+
+    private static Category loadCategoryBDD() {
+
+        Category category = new Category(99L, "BDD_TITLE", "BDD_COLOR");
+
+        return category;
     }
 
     private static CategoryResponse loadCategoryResponse() {
@@ -57,7 +68,7 @@ public class CategoryScenarioFactory {
     }
     
     private static CategoryRequest loadCreateRequest() {
-        return CategoryRequest.builder().title("title").color("color").build();
+        return CategoryRequest.builder().title("testes").color("color").build();
     }
     
     private static CategoryUpdate loadCreateUpdate(){
