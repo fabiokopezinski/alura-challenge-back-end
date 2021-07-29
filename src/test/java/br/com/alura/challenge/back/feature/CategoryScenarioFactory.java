@@ -20,6 +20,8 @@ public class CategoryScenarioFactory {
 
     public static final CategoryRequest CATEGORY_REQUEST = loadCreateRequest();
 
+    public static final CategoryRequest CATEGORY_REQUEST_BAD = loadCreateRequestBAD();
+
     public static final CategoryUpdate CATEGORY_UPDATE = loadCreateUpdate();
 
     public static final Category CATEGORY = loadCategory();
@@ -38,6 +40,10 @@ public class CategoryScenarioFactory {
         list.add(categoryResponse);
 
         return new PageImpl<CategoryResponse>(list, page, 10);
+    }
+
+    private static CategoryRequest loadCreateRequestBAD() {
+        return CategoryRequest.builder().title("LIVRE").color("color").build();
     }
 
     private static Category loadCategoryBDD() {
@@ -62,7 +68,7 @@ public class CategoryScenarioFactory {
     }
     
     private static CategoryRequest loadCreateRequest() {
-        return CategoryRequest.builder().title("title").color("color").build();
+        return CategoryRequest.builder().title("testes").color("color").build();
     }
     
     private static CategoryUpdate loadCreateUpdate(){

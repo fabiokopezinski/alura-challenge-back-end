@@ -82,7 +82,7 @@ public class CategoryService {
     public CategoryResponse create(@Valid CategoryRequest categoryRequest) {
 
         categoryRepository.findByTitle(categoryRequest.getTitle()).ifPresent(p -> {
-            throw Message.NOT_FOUND_CATEGORY.asBusinessException();
+            throw Message.CATEGORY.asBusinessException();
         });
 
         Category category = Category.of(categoryRequest);

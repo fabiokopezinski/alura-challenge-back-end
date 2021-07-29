@@ -1,125 +1,106 @@
 package br.com.alura.challenge.back.feature;
 
-import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.springframework.http.ResponseEntity;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.alura.challenge.back.domain.dto.request.VideoRequest;
-import br.com.alura.challenge.back.domain.dto.request.VideoUpdate;
-import io.cucumber.java.pt.Dado;
-import io.cucumber.java.pt.Entao;
-import io.cucumber.java.pt.Quando;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-public class VideoTest extends AbstractSteps {
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestInstance(Lifecycle.PER_CLASS)
+public class VideoTest {
 
-    String categoryId;
+    @Autowired
+    private WebApplicationContext wac;
 
-    String videoId;
+    private MockMvc mockMvc;
 
-    String title;
-
-    String description;
-
-    String url;
-
-    @Quando("realizar uma consulta de todos os videos e informo o {string} e a {string}")
-    public void realizar_uma_consulta_de_todos_os_videos_e_informo_o_e_a(String string, String string2)
-            throws Exception {
-
-        ResponseEntity<String> videos = findAllVideoResponse(string, string2);
-
-        this.testContext().setResponse(videos);
-        this.testContext().set(HTTP_CODE_RESPONSE, videos.getStatusCode().value());
-
+    @BeforeAll
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 
-    @Dado("que estou no endpoint para listar por categoria {string}")
-    public void que_estou_no_endpoint_para_listar_por_categoria(String string) {
-        this.categoryId = string;
+    @Test
+    public void findAllVideo() throws Exception {
+        mockMvc.perform(get("/videos")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andDo(print());
     }
 
-    @Quando("realizar uma consulta para listar videos por categoria")
-    public void realizar_uma_consulta_para_listar_videos_por_categoria() throws Exception {
-
-        ResponseEntity<String> videos = findAllVideoCategory(categoryId);
-
-        this.testContext().setResponse(videos);
-        this.testContext().set(HTTP_CODE_RESPONSE, videos.getStatusCode().value());
+    @Test
+    public void findByCategory() throws Exception {
+        mockMvc.perform(get("/videos/1/categorias")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andDo(print());
     }
 
-    @Dado("que estou no endpoint para procurar por id {string}")
-    public void que_estou_no_endpoint_para_procurar_por_id(String string) {
-        this.videoId = string;
+    @Test
+    public void create_WhenParamsIsValid_ExpectedCreate() throws Exception {
+        mockMvc.perform(post("/videos").content(asJsonString(VideoScenarioFactory.CREATE_REQUEST))
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
     }
 
-    @Quando("realizar uma consulta por id")
-    public void realizar_uma_consulta_por_id() throws Exception {
-
-        ResponseEntity<String> videos = findByVideoId(videoId);
-
-        this.testContext().setResponse(videos);
-        this.testContext().set(HTTP_CODE_RESPONSE, videos.getStatusCode().value());
+    @Test
+    public void create_WhenParamsIsInvalid_ExpectedBadRequest() throws Exception {
+        mockMvc.perform(post("/videos").content(asJsonString(VideoScenarioFactory.CREATE_REQUEST_BAD_REQUEST))
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest()).andDo(print());
     }
 
-    @Dado("que estou no endpoint para criar o video {string} , {string} , {string} , {string}")
-    public void que_estou_no_endpoint_para_criar_o_video(String string, String string2, String string3,
-            String string4) {
-        this.title = string;
-        this.description = string2;
-        this.categoryId = string3;
-        this.url = string4;
+    @Test
+    public void findByVideoId_WhenPathVariableIsValid_ExpectedOk() throws Exception {
+        mockMvc.perform(get("/videos/1").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+                .andDo(print());
     }
 
-    @Quando("realizar um registro")
-    public void realizar_um_registro() throws Exception {
-
-        VideoRequest videoRequest = VideoRequest.builder().title(title).description(description)
-                .categoryId(Long.valueOf(categoryId)).url(url).build();
-
-        ResponseEntity<String> video = create(videoRequest);
-
-        this.testContext().setResponse(video);
-        this.testContext().set(HTTP_CODE_RESPONSE, video.getStatusCode().value());
+    @Test
+    public void findByVideoId_WhenPathVariableIsInvalid_ExpectedOk() throws Exception {
+        mockMvc.perform(get("/videos/0").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
+                .andDo(print());
     }
 
-    @Dado("que estou no endpoint para atualizar o video {string},{string} , {string} , {string}")
-    public void que_estou_no_endpoint_para_atualizar_o_video(String string, String string2, String string3,
-            String string4) {
-        this.videoId = string;
-        this.description = string2;
-        this.categoryId = string3;
-        this.url = string4;
+    @Test
+    public void update_WhenParamsIsValid_ExpectedUpdated() throws Exception {
+        mockMvc.perform(patch("/videos/1").content(asJsonString(VideoScenarioFactory.VIDEO_UPDATE))
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
-    @Quando("realizar uma atualizacao")
-    public void realizar_uma_atualizacao() throws Exception {
-
-        VideoUpdate videoUpdate = new VideoUpdate(description, url);
-
-        ResponseEntity<String> video = update(videoUpdate, videoId);
-
-        this.testContext().setResponse(video);
-        this.testContext().set(HTTP_CODE_RESPONSE, video.getStatusCode().value());
+    @Test
+    public void update_WhenParamsIsInvalid_ExpectedUpdated() throws Exception {
+        mockMvc.perform(patch("/videos/0").content(asJsonString(VideoScenarioFactory.VIDEO_UPDATE))
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
     }
 
-    @Dado("que estou no endpoint para deletar por id {string}")
-    public void que_estou_no_endpoint_para_deletar_por_id(String string) {
-        this.videoId = string;
+    @Test
+    public void delete_WhenPathVariableIsValid_ExpectedOk() throws Exception {
+        mockMvc.perform(delete("/videos/1").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
     }
 
-    @Quando("realizar uma delacao por id")
-    public void realizar_uma_delacao_por_id() throws Exception {
-        
-        ResponseEntity<Void> video = delete(videoId);
-
-        this.testContext().setResponse(video);
-        this.testContext().set(HTTP_CODE_RESPONSE, video.getStatusCode().value());
+    @Test
+    public void delete_WhenPathVariableIsInvalid_ExpectedOk() throws Exception {
+        mockMvc.perform(delete("/videos/0").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
     }
 
-    @Entao("a API deve me retornar o código da operação {string} e os dados apresentados no corpo da solicitação")
-    public void a_API_deve_me_retornar_o_código_da_operação_e_os_dados_apresentados_no_corpo_da_solicitação(
-            String string) {
-        assertEquals(Integer.parseInt(string), this.testContext().getResponse().getStatusCodeValue());
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
-
 }
