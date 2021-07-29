@@ -15,7 +15,9 @@ Os times de frontend e UI já estão trabalhando no layout e nas telas. Para o b
   + Java 8
   + Spring boot
   + H2 database
+  + Junit 5
   
 # Executando o projeto
+ + mvn spring-boot:run
  + Swagger http://localhost:8080/api/v1/swagger 
 
