@@ -22,7 +22,7 @@ Os times de frontend e UI já estão trabalhando no layout e nas telas. Para o b
   + password: 124578
   
 # Executando o projeto Heroku
- + [Heroku](https://alura-flix-back.herokuapp.com/api/v1/swagger) - Heroku
+ + [Heroku](https://alura-flix-back.herokuapp.com/api/v1/swagger)
  + Ao usar a api no heroku, no swagger , colocar no serve https://alura-flix-back.herokuapp.com/api/v1
  
 # Executando localmente
