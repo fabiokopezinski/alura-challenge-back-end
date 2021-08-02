@@ -15,49 +15,23 @@
 	<description>Alura Challenge Back-End</description>
 	<properties>
 		<junit-plataform.version>5.3.2</junit-plataform.version>
-		<cucumber.version>4.7.2</cucumber.version>
 		<java.version>8</java.version>
-		<skip.unit.tests>false</skip.unit.tests>
-		<skip.integration.tests></skip.integration.tests>
 	</properties>
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-		<profile>
-			<id>integration-test</id>
-			<properties>
-				<skip.integration.tests>false</skip.integration.tests>
-				<skip.unit.tests>true</skip.unit.tests>
-			</properties>
-		</profile>
-	</profiles>
 	<dependencies>
 		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-core</artifactId>
-			<version>${cucumber.version}</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<version>4.2.2.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>${cucumber.version}</version>
-			<scope>test</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-junit</artifactId>
-			<version>${cucumber.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-spring</artifactId>
-			<version>${cucumber.version}</version>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -160,24 +134,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.gmavenplus</groupId>
-				<artifactId>gmavenplus-plugin</artifactId>
-				<version>1.5</version>
-				<configuration>
-					<testSources>
-						<testSource>
-							<directory>src/test/groovy</directory>
-							<includes>
-								<include>**/*.groovy</include>
-							</includes>
-						</testSource>
-						<testSource>
-							<directory>src/integration-test</directory>
-						</testSource>
-					</testSources>
-				</configuration>
-			</plugin>
-			<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>cobertura-maven-plugin</artifactId>
 					<version>2.7</version>
@@ -212,63 +168,17 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
-
                 <configuration>
                     <reuseForks>true</reuseForks>
                     <includes>
                         <include>**/*Test.java</include>
-						 <include>**/*IT.java</include>
                     </includes>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                        <phase>integration-test</phase>
-                        <configuration>
-                            <excludes>
-                                <exclude>none</exclude>
-                            </excludes>
-                            <includes>
-                                <include>**/*IT.java</include>
-                            </includes>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
-			<plugin>
-				<groupId>com.github.spotbugs</groupId>
-				<artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.2.2</version>
-				<configuration>
-					<xmlOutput>true</xmlOutput>
-					<threshold>High</threshold>
-					<effort>High</effort>
-					<failOnError>true</failOnError>
-					<plugins>
-						<plugin>
-							<groupId>com.h3xstream.findsecbugs</groupId>
-							<artifactId>findsecbugs-plugin</artifactId>
-							<version>1.11.0</version>
-						</plugin>
-					</plugins>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-							<goal>spotbugs</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -316,6 +226,7 @@
 						<exclude>br/com/alura/challenge/back/repository/*/**</exclude>
 						<exclude>br/com/alura/challenge/back/validations/*/**</exclude>
 						<exclude>br/com/alura/challenge/back/BackApplication.*</exclude>
+						<exclude>br/com/alura/challenge/back/service/LoginService.*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
