@@ -25,4 +25,8 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
 
     Optional<Video> findByTitle(String title);
 
+    @Query("SELECT NEW br.com.alura.challenge.back.domain.dto.response.VideoResponse(v.videoId,v.title,v.categoryId,v.description,v.url) FROM Video v"
+            + " INNER JOIN Category c on c.categoryId=v.categoryId")
+    Page<VideoResponse> findAllVideoFree(Pageable page);
+
 }

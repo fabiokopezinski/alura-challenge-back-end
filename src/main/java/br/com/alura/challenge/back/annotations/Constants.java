@@ -40,4 +40,7 @@ public class Constants {
 
     public static final String USER_CREATE = "Criar usuário";
     public static final String USER_CREATE_DESCRIPTION = "Irá criar um novo usuário";
+
+    public static final String LIST_FREE = "Listar 10 videos gratuítos";
+    public static final String LIST_FREE_DESCR = "Irá listar 10 videos gratuítos";
 }

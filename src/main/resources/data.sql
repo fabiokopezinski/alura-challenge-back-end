@@ -52,6 +52,8 @@ insert into tb_categoria values(1,'LIVRE','White');
 
 insert into tb_video values(1,'curso de Testes de Integração: Testes de SQL e DAOs automatizados em Java','Desenvolvedores e desenvolvedoras Java com base em testes de unidade, que querem ampliar os seus conhecimentos em cenários que exigem integração.','https://www.alura.com.br/curso-online-teste-integracao-sql-daos-automatizados-java',1);
 
+insert into tb_video values(2,'Testes de Integração: Testes de SQL e DAOs automatizados em Java','Desenvolvedores e desenvolvedoras Java com base em testes de unidade, que querem ampliar os seus conhecimentos em cenários que exigem integração.','https://www.alura.com.br/curso-online-teste-integracao-sql-daos-automatizados-java',1);
+
 insert into tb_profile values(1,'ADMIN');
 
 insert into tb_profile values(2,'USER');
