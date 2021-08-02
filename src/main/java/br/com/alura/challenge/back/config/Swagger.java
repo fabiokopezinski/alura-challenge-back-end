@@ -12,7 +12,9 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "Api Alura Flix", description = "Plataforma de compartilhamento de vídeo", contact = @Contact(name = "Fábio Kopezinski", email = "fabiokopezinski@gmail.com"), version = "1.0.0"), servers = {
+@OpenAPIDefinition(info = @Info(title = "Api Alura Flix", description = "Plataforma de compartilhamento de vídeo", contact = @Contact(name = "Fábio Kopezinski", email = "fabiokopezinski@gmail.com"), version = "1.0.0"), 
+         servers = {
+                @Server(url="https://alura-flix-back.herokuapp.com/api/v1"),
                 @Server(url = "http://localhost:8080/api/v1") })
 public class Swagger {
 
