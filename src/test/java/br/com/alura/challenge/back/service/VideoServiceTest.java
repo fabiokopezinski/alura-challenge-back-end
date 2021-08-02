@@ -50,6 +50,21 @@ public class VideoServiceTest {
         verify(videoRepository).findByCategoria(any(), any());
     }
 
+    @Test
+    @DisplayName("Listar por gratuitos")
+    public void free() {
+
+        when(videoRepository.findAllVideoFree(any(Pageable.class))).thenReturn(VideoScenarioFactory.FIND_ALL);
+
+        Page<VideoResponse> findAllVideo = videoService.free();
+
+        assertNotNull(findAllVideo);
+
+        assertEquals(VideoScenarioFactory.FIND_ALL, findAllVideo);
+
+        verify(videoRepository).findAllVideoFree(any());
+    }
+
     @DisplayName("Listar todos os videos disponiveis")
     @Test
     public void findAllVideo() {

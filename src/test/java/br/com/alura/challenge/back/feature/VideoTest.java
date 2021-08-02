@@ -47,6 +47,12 @@ public class VideoTest {
     }
 
     @Test
+    public void findAllFree() throws Exception {
+        mockMvc.perform(get("/videos/free")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andDo(print());
+    }
+
+    @Test
     public void findByCategory() throws Exception {
         mockMvc.perform(get("/videos/1/categorias")).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andDo(print());

@@ -47,6 +47,13 @@ public class VideoControllerTest {
     }
 
     @Test
+    public void findAllFree_ExpectedOk() throws Exception {
+        when(videoService.free()).thenReturn(VideoScenarioFactory.FIND_ALL);
+        mockMvc.perform(get("/videos/free")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
     public void findByCategory_ExpectedOk() throws Exception {
         when(videoService.findByCategory(anyInt(), anyInt(), any())).thenReturn(VideoScenarioFactory.FIND_ALL);
         mockMvc.perform(get("/videos/1/categorias")).andExpect(status().isOk())
