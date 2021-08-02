@@ -1,7 +1,5 @@
 package br.com.alura.challenge.back.service;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
