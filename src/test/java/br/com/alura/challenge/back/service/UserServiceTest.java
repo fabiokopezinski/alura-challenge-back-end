@@ -75,7 +75,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Criar usuário, mas não existe o usuário")
+    @DisplayName("Criar usuário, mas não existe o perfil")
     public void save_WhenProfileIsInvalid_ExpectedBusiness() {
 
         when(userRepository.findByEmail(any())).thenReturn(Optional.empty());
@@ -90,7 +90,7 @@ public class UserServiceTest {
     @DisplayName("Criar usuário mas já existe no banco")
     public void save_WhenEmailIsInvalid_ExpectedCreate() {
 
-        when(userRepository.findByEmail(anyString())).thenThrow(BusinessException.class);
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(UserScenarioFactory.USER));
 
         assertThrows(BusinessException.class, () -> userService.save(UserScenarioFactory.USER_REQUEST));
     }
