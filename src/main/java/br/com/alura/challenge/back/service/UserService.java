@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
 
         log.info("method=loadUserByUsername username={}",username);
         return userRepository.findByEmail(username)
-                .orElseThrow(() -> Message.NOT_FOT_USER_PERMISSION.asBusinessException());
+                .orElseThrow(Message.NOT_FOT_USER_PERMISSION::asBusinessException);
     }
 
     public UserResponse save(@Valid UserRequest userRequest) {
