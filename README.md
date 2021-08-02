@@ -16,8 +16,16 @@ Os times de frontend e UI já estão trabalhando no layout e nas telas. Para o b
   + Spring boot
   + H2 database
   + Junit 5
+
+# Usuário
+  + email: admin@email.com
+  + password: 124578
   
-# Executando o projeto
+# Executando o projeto Heroku
+ + [Heroku](https://alura-flix-back.herokuapp.com/api/v1/swagger) - Heroku
+ + Ao usar a api no heroku, no swagger , colocar no serve https://alura-flix-back.herokuapp.com/api/v1
+ 
+# Executando localmente
  + mvn spring-boot:run
  + Swagger http://localhost:8080/api/v1/swagger 
 
