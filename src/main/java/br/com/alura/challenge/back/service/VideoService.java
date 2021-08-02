@@ -104,7 +104,7 @@ public class VideoService {
 
     public Page<VideoResponse> free() {
 
-        int limit = 10;
+        int limit = 3;
         int page = 0;
 
         Pageable pageable = PageRequest.of(page, limit);
