@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @Target({ ElementType.METHOD, ElementType.ANNOTATION_TYPE, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
@@ -23,7 +24,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
         @ApiResponse(responseCode = "204", description = "Deletado com sucesso", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
         @ApiResponse(responseCode = "404", description = "Categoria não encontrado", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = BusinessExceptionBody.class))),
         @ApiResponse(responseCode = "500", description = "Sistema indisponivel", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
-@Operation(summary = Constants.VIDEO_DELETE_CATEGORY_SUMMARY, description = Constants.VIDEO_DELETE_CATEGORY_DESCRIPTION)
+@Operation(summary = Constants.VIDEO_DELETE_CATEGORY_SUMMARY, description = Constants.VIDEO_DELETE_CATEGORY_DESCRIPTION, security = @SecurityRequirement(name = "bearerAuth"))
 public @interface CategoryDeleteCodeStandard {
     
 }

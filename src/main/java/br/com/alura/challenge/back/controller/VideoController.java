@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.alura.challenge.back.annotations.VideoListAllCategoryCodeStandard;
+import br.com.alura.challenge.back.annotations.FreeCodeStandard;
 import br.com.alura.challenge.back.annotations.VideoCreateCodeStandard;
 import br.com.alura.challenge.back.annotations.VideoDeleteCodeStandard;
 import br.com.alura.challenge.back.annotations.VideoGetIdCodeStandard;
+import br.com.alura.challenge.back.annotations.VideoListAllCategoryCodeStandard;
 import br.com.alura.challenge.back.annotations.VideoListAllCodeStandard;
 import br.com.alura.challenge.back.annotations.VideoPatchCodeStandard;
 import br.com.alura.challenge.back.domain.dto.request.VideoRequest;
@@ -36,9 +37,11 @@ public class VideoController {
 
     @GetMapping
     @VideoListAllCodeStandard
-    public ResponseEntity<Page<VideoResponse>> findAllVideo(@RequestParam(required = false,defaultValue = "0",name = "page")int page,@RequestParam(required = false,defaultValue = "10",name="limit" )int limit,
-    @RequestParam(required = false,name="search")String title){
-        return ResponseEntity.status(HttpStatus.OK).body(videoService.findAllVideo(page,limit,title));
+    public ResponseEntity<Page<VideoResponse>> findAllVideo(
+            @RequestParam(required = false, defaultValue = "0", name = "page") int page,
+            @RequestParam(required = false, defaultValue = "10", name = "limit") int limit,
+            @RequestParam(required = false, name = "search") String title) {
+        return ResponseEntity.status(HttpStatus.OK).body(videoService.findAllVideo(page, limit, title));
     }
 
     @GetMapping("/{categoryId}/categorias")
@@ -60,6 +63,12 @@ public class VideoController {
     @VideoGetIdCodeStandard
     public ResponseEntity<VideoResponse> findByVideoId(@PathVariable("videoId") Long videoId) {
         return ResponseEntity.status(HttpStatus.OK).body(videoService.findByVideoId(videoId));
+    }
+
+    @GetMapping("/free")
+    @FreeCodeStandard
+    public ResponseEntity<Page<VideoResponse>> free() {
+        return ResponseEntity.status(HttpStatus.OK).body(videoService.free());
     }
 
     @PatchMapping("/{videoId}")

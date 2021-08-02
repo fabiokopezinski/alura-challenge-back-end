@@ -19,7 +19,8 @@ public class Swagger {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI().components(new Components().addSecuritySchemes("bearerAuth",
-                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")));
+                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer")
+                .bearerFormat("JWT")));
     }
 
 }

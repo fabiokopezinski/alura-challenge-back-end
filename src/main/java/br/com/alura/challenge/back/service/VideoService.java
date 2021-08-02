@@ -1,5 +1,7 @@
 package br.com.alura.challenge.back.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -100,5 +102,17 @@ public class VideoService {
         videoRepository.deleteById(videoId);
 
         log.info("method=delete videoId={}", videoId);
+    }
+
+    public Page<VideoResponse> free() {
+
+        int limit = 10;
+        int page = 0;
+
+        Pageable pageable = PageRequest.of(page, limit);
+
+        log.info("method=free limit={}",limit);
+
+        return videoRepository.findAllVideoFree(pageable);
     }
 }

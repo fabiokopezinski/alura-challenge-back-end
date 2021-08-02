@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 
 import br.com.alura.challenge.back.domain.dto.response.UserResponse;
 import br.com.alura.challenge.back.exception.BusinessException.BusinessExceptionBody;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

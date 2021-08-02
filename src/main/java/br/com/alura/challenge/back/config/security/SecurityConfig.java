@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http.httpBasic().disable().csrf().disable().sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable().headers()
                     .frameOptions().disable().and().authorizeRequests().antMatchers("/swagger.html").permitAll().and()
+                    .authorizeRequests().antMatchers("/swagger-ui.html").permitAll().and()
                     .authorizeRequests().antMatchers("/login").permitAll().and().authorizeRequests()
                     .antMatchers("/categorias/**", "/videos/**").authenticated().and()
                     .apply(new JwtConfigurer(jwtTokenProvider));
