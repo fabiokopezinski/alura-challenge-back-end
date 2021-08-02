@@ -34,4 +34,10 @@ public class Constants {
 
     public static final String VIDEO_DELETE_CATEGORY_SUMMARY = "Deletar um categoria";
     public static final String VIDEO_DELETE_CATEGORY_DESCRIPTION = "Irá deletar um categoria na api";
+
+    public static final String LOGIN_POST_SUMMARY = "Logar";
+    public static final String LOGIN_POST_DESCRIPTION = "Ira realizar um login";
+
+    public static final String USER_CREATE = "Criar usuário";
+    public static final String USER_CREATE_DESCRIPTION = "Irá criar um novo usuário";
 }
