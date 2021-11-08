@@ -157,8 +157,7 @@
 	      <artifactId>sonar-maven-plugin</artifactId>
 	      <version>3.2</version>
  	    </plugin>
-      	    </plugin>
-            <plugin>
+        <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
